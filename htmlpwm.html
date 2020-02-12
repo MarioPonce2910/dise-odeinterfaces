@@ -1,0 +1,60 @@
+
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<h2>NodeMCU Server Control</h2>
+
+<div class="slidecontainer">
+  <p>GPIO 5 PWM Value: <span id="slider_p"></span></p>
+  <input type="range" min="0" max="1023" value="0" class="slider" id="myRange">
+
+<p>GPIO 15 LED Switch: <span id="led_state">OFF</span></p> 
+<label class="switch">
+  <input type="checkbox" onchange="state_change(this)">
+  <span class="slider1 round"></span>
+</label>
+</div>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("slider_p");
+output.innerHTML = slider.value;
+
+slider.onchange = function() {
+  output.innerHTML = this.value;
+  pwm_change(this.value);
+}
+</script>
+
+<script>
+function pwm_change(val) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("GET", "setPWM?PWMval="+val, true);
+  xhttp.send();
+}
+</script>
+
+<script>
+function state_change(element) {
+  var xhttp = new XMLHttpRequest();
+  
+  if (element.checked){
+    xhttp.open("GET", "setButton?button_state=1", true);
+    document.getElementById("led_state").innerHTML = "ON";
+  } else if (!element.checked){
+    xhttp.open("GET", "setButton?button_state=0", true);
+    document.getElementById("led_state").innerHTML = "OFF";
+  }
+  xhttp.send();
+}
+</script>
+
+</body>
+
+</html>

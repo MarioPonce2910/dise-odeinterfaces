@@ -1,0 +1,46 @@
+<html><head>
+	<title>10 Seconds Count Down Timer</title>
+
+	<style type="text/css">
+		@font-face{
+			font-family: sevenSegment;
+			src: url(seven-segment.ttf);
+		}
+
+		h1{
+			font-family: sevenSegment;
+			font-size: 15em;
+			color: #969696;
+		}
+
+		.container{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1 id="count">COMPLETE</h1>
+	</div>
+
+	<script type="text/javascript">
+		var counter = 5;
+
+		setInterval( function(){
+			counter--;
+
+			if( counter >= 0 ){
+				id = document.getElementById("count");
+				id.innerHTML = counter;
+			}
+
+			if( counter === 0 ){
+				window.location.href = 'timeout.html';
+			}
+		}, 1000);
+	</script>
+
+</body></html>
